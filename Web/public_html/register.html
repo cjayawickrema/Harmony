@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <script src="js/bootstrap.min.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/register.js"></script>
+        <script type="text/javascript" src="js/bootstrap-growl.min.js"></script>
     </head>
     <body ng-app="registration">
         <div class="container">
@@ -43,7 +44,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="user.lastName">
                         </div>
                         <div class="form-group">
-                            <input type="test" class="form-control" id="email" placeholder="Email" ng-model="user.email">
+                            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.email">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">

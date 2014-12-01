@@ -43,6 +43,7 @@ public abstract class ODBClass {
         Class cls = this.getClass();
         try {
             String query = "select * from " + cls.getSimpleName() + " where " + getUniqueFieldName() + "='" + PropertyUtils.getProperty(this, getUniqueFieldName()) + "'";
+            System.out.println("Query: " + query);
             List<ODocument> docs = DBFactory.getInstance().getDb().query(new OSQLSynchQuery<ODocument>(query));
             if (!docs.isEmpty()) {
                 fillObject(docs.get(0), this);

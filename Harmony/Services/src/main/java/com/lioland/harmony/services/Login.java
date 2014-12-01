@@ -17,7 +17,9 @@
  */
 package com.lioland.harmony.services;
 
+import com.lioland.harmony.services.dao.DBFactory;
 import com.lioland.harmony.services.dao.User;
+import java.util.Date;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -36,7 +38,7 @@ public class Login {
 
     @GET
     @Produces("application/json")
-    @Path("authenticate")
+    @Path("/authenticate")
     public User authenticateUser(@QueryParam("email") String email, @QueryParam("password") String password) {
         User user = new User();
         user.setEmail(email);
@@ -51,10 +53,10 @@ public class Login {
     @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void consumeJSON(User user) {
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^");
-        System.out.println(user);
-//        return Response.ok().build();
+    public Response consumeJSON(User user) {
+        user.setJoinedDate(new Date());
+        user.save();
+        return Response.ok().build();
     }
 
 }

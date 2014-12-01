@@ -15,16 +15,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-angular.module("registration", [])
-        .controller("RegistrationCtrl", function ($scope, $http) {
+angular.module("home", [])
+        .controller("AuthenticationCtrl", function ($scope, $http) {
             $scope.myData = {};
-            $scope.register = function (user) {
-
-                var responsePromise = $http.post("http://localhost:81/services/login/register", user);
+            $scope.authenticate = function (credentials) {
+                var responsePromise = $http.get("http://localhost:81/services/login/authenticate", {params: credentials});
 
                 responsePromise.success(function (data, status, headers, config) {
-                    window.location = 'index.html';
+                    if (data) {
+                        alert('Hello ' + data.firstName);
+                    } else {
+                        alert('invalid');
+                    }
+
                 });
                 responsePromise.error(function (data, status, headers, config) {
                     alert("Error!");
@@ -33,17 +36,3 @@ angular.module("registration", [])
 
 
         });
-
-//angular.module('registration', [])
-//        .controller('RegistrationCtrl', ['$scope', function ($scope, $http) {
-//
-//                $scope.register = function (user) {
-//                    alert($http + '1');
-//                    $http.post('http://localhost:8080/Services/rest/login/register', user)
-//                            .success(function (data, status, headers, config) {
-//                                alert(data);
-//                            }).error(function (data, status, headers, config) {
-//                        alert('Error');
-//                    });
-//                };
-//            }]);
