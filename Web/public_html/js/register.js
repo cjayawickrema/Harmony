@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-angular.module("registration", [])
-        .controller("RegistrationCtrl", function ($scope, $http) {
+angular.module("registration", ['ngCookies'])
+        .controller("RegistrationCtrl", function ($scope, $http, $cookies) {
             $scope.myData = {};
             $scope.register = function (user) {
 

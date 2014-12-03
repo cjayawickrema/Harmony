@@ -10,5 +10,6 @@
     </properties>
   <modules>
     <module>Services</module>
+    <module>Web</module>
   </modules>
 </project>

@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/angular.min.js"></script>
+        <script src="js/angular-cookies.min.js"></script>
         <script src="js/bootstrap-growl.min.js"></script>
         <script src="js/home.js"></script>
     </head>
@@ -48,18 +49,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <form ng-controller="AuthenticationCtrl">
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="credentials.email">
+                        <div ng-if="!user" >
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="credentials.email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="credentials.password">
+                            </div>
+                            <button ng-click="authenticate(credentials)" class="btn btn-default">Login</button> or <a href="register.html">Register Now!</a>
                         </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="credentials.password">
-                        </div>
-                        <button ng-click="authenticate(credentials)" class="btn btn-default">Login</button> or <a href="register.html">Register Now!</a>
                     </form>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10"></div>
+                <div class="col-md-8"></div>
             </div>
         </div>
     </body>

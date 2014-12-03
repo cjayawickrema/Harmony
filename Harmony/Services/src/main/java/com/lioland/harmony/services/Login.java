@@ -17,7 +17,6 @@
  */
 package com.lioland.harmony.services;
 
-import com.lioland.harmony.services.dao.DBFactory;
 import com.lioland.harmony.services.dao.User;
 import java.util.Date;
 import javax.ws.rs.Consumes;
@@ -28,6 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -44,6 +44,7 @@ public class Login {
         user.setEmail(email);
         user.loadObject();
         if (user.getPassword().equals(password)) {
+            user.setPassword(DigestUtils.sha256Hex(user.getEmail().toLowerCase()));
             return user;
         } else {
             return null;
