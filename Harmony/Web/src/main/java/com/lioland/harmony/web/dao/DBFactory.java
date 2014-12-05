@@ -17,9 +17,7 @@
  */
 package com.lioland.harmony.web.dao;
 
-import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentPool;
-import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.db.record.ODatabaseRecord;
 
 /**
@@ -28,14 +26,8 @@ import com.orientechnologies.orient.core.db.record.ODatabaseRecord;
  */
 public class DBFactory {
 
-    private static ODatabaseDocumentTx db;
-
     public static ODatabaseRecord getDb() {
-        if (db == null) {
-            db = ODatabaseDocumentPool.global().acquire("remote:localhost/Harmony", "root", "root");
-            ODatabaseRecordThreadLocal.INSTANCE.set((ODatabaseRecord) db);
-        }
-        return (ODatabaseRecord) ODatabaseRecordThreadLocal.INSTANCE.get();
+        return ODatabaseDocumentPool.global().acquire("remote:localhost/Harmony", "root", "root");
     }
 
 }

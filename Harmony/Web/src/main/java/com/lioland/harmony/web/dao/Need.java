@@ -17,6 +17,9 @@
  */
 package com.lioland.harmony.web.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Chandima
@@ -32,9 +35,14 @@ public class Need extends ODBClass {
     private String state;
     private String country;
     private User reporter;
+    private List<Tag> tags = new ArrayList<>();
 
     public String getTitle() {
         return title;
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
     }
 
     public void setTitle(String title) {
@@ -102,9 +110,13 @@ public class Need extends ODBClass {
         return "title";
     }
 
+//    @Override
+//    public String toString() {
+//        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + ", tags=" + tags + '}';
+//    }
     @Override
     public String toString() {
-        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + '}';
+        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + '}';
     }
 
     public User getReporter() {
@@ -115,4 +127,11 @@ public class Need extends ODBClass {
         this.reporter = reporter;
     }
 
+//    public List<Tag> getTags() {
+//        return tags;
+//    }
+//
+//    public void setTags(List<Tag> tags) {
+//        this.tags = tags;
+//    }
 }

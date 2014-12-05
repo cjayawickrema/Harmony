@@ -25,21 +25,21 @@
             <div class="row text-center">
                 <div class="col-md-4 col-md-offset-4">
                     <img src="resources/images/full-logo.svg" width="180" />
-                    <form>
+                    <form method="post" action="registerUser">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                            <input type="text" class="form-control" name="firstName" placeholder="First Name">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                            <input type="text" class="form-control" name="lastName" placeholder="Last Name">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" class="form-control" name="email" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password">
                         </div>
                         <div class="checkbox">
                             <label>

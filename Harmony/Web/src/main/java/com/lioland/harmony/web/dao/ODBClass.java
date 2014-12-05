@@ -73,25 +73,27 @@ public abstract class ODBClass {
     }
 
     private ODocument createODocument(ODBClass odbc) {
-        Class cls = odbc.getClass();
         ODocument doc;
-        if (rid == null) {
-            doc = new ODocument(cls.getSimpleName());
-        } else {
-            doc = getODocument();
-        }
-        for (Field field : cls.getDeclaredFields()) {
-            try {
-                String fieldName = field.getName();
-                Object fieldValue = PropertyUtils.getProperty(odbc, fieldName);
-                if (fieldValue instanceof ODBClass) {
-                    fieldValue = createODocument((ODBClass) fieldValue);
+        try (ODatabaseRecord db = DBFactory.getDb()) {
+            Class cls = odbc.getClass();
+            if (rid == null) {
+                doc = new ODocument(cls.getSimpleName());
+            } else {
+                doc = getODocument();
+            }
+            for (Field field : cls.getDeclaredFields()) {
+                try {
+                    String fieldName = field.getName();
+                    Object fieldValue = PropertyUtils.getProperty(odbc, fieldName);
+                    if (fieldValue instanceof ODBClass) {
+                        fieldValue = createODocument((ODBClass) fieldValue);
+                    }
+                    if (fieldValue != null) {
+                        doc.field(fieldName, fieldValue);
+                    }
+                } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                    Logger.getLogger(ODBClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (fieldValue != null) {
-                    doc.field(fieldName, fieldValue);
-                }
-            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-                Logger.getLogger(ODBClass.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return doc;

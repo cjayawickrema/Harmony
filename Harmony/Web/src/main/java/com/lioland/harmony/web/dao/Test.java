@@ -17,6 +17,9 @@
  */
 package com.lioland.harmony.web.dao;
 
+import com.lioland.harmony.web.controller.DefaultController;
+import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
+
 public class Test {
 
     public static void main(String[] args) {
@@ -44,11 +47,16 @@ public class Test {
 //        user.setLastName("Jayawickrema");
 //        user.setPassword("chandima");
 //        user.save();
-        User user = new User();
-        user.setEmail("chandima@lioland.com");
-        user.loadObject();
-//        
-        System.out.println(user.getLastName());
+        for (int i = 0; i < 2; i++) {
+            new Thread() {
+                @Override
+                public void run() {
+                    ODatabaseRecordThreadLocal.INSTANCE.set(DBFactory.getDb());
+                    new DefaultController().authenticate("chandima@lioland.com", "chandima", null);
+                    System.out.println("done");
+                }
+            }.start();
+        }
 
 //        factory.close();
     }

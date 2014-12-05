@@ -7,6 +7,8 @@ package com.lioland.harmony.web.controller;
 
 import com.lioland.harmony.web.dao.User;
 import com.lioland.harmony.web.util.Constants;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -34,14 +36,14 @@ public class DefaultController {
     public String redirectRegister() {
         return "register";
     }
-    
-     @RequestMapping(method = RequestMethod.GET, value = "/report-need")
+
+    @RequestMapping(method = RequestMethod.GET, value = "/report-need")
     public String redirectReportNeed() {
         return "report-need";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/authenticate")
-    public String redirectRegister(String email, String password, HttpServletRequest request) {
+    public String authenticate(String email, String password, HttpServletRequest request) {
         User user = new User();
         user.setEmail(email);
         user.loadObject();
@@ -52,6 +54,14 @@ public class DefaultController {
             session.setAttribute(Constants.SESSION_ATTR_USER, user);
             System.out.println("Authenticated: " + user.getFirstName());
         }
+        return "home";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/registerUser")
+    public String register(User user, HttpServletRequest request) {
+        user.setJoinedDate(new Date());
+        user.save();
+        System.out.println("User saved: " + user);
         return "home";
     }
 }
