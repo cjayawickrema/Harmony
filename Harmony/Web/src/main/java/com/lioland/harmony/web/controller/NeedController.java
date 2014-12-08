@@ -34,13 +34,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NeedController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/save-need")
-    public String redirectRegister(Need need, String[] tags, HttpServletRequest request) {
+    public String redirectRegister(Need need, HttpServletRequest request) {
         need.setReporter((User) request.getSession().getAttribute(Constants.SESSION_ATTR_USER));
-        for (String t : tags) {
-            Tag tag = new Tag();
-            tag.setName(t);
-            need.addTag(tag);
-        }
         need.save();
         System.out.println("Need saved");
         return "report-need";

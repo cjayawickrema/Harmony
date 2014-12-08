@@ -41,6 +41,7 @@ public abstract class ODBClass {
 
     public void loadObject() {
         Class cls = this.getClass();
+        System.out.println("loading object: " + cls);
         try {
             String query = "select * from " + cls.getSimpleName() + " where " + getUniqueFieldName() + "='" + PropertyUtils.getProperty(this, getUniqueFieldName()) + "'";
             System.out.println("Query: " + query);
@@ -58,7 +59,7 @@ public abstract class ODBClass {
 
     public ODBClass(String rid) {
         this.rid = rid;
-        ODocument doc = getODocument();
+        ODocument doc = getODocument(rid);
         transform(doc, this.getClass());
     }
 
@@ -66,6 +67,7 @@ public abstract class ODBClass {
     }
 
     public void save() {
+        System.out.println("Saving...");
         ODBClass odbc = this;
         ODocument doc = createODocument(odbc);
         doc.save();
@@ -73,20 +75,43 @@ public abstract class ODBClass {
     }
 
     private ODocument createODocument(ODBClass odbc) {
+        System.out.println("Reading " + odbc.getClass() + "...");
+        System.out.println(odbc);
         ODocument doc;
         try (ODatabaseRecord db = DBFactory.getDb()) {
             Class cls = odbc.getClass();
-            if (rid == null) {
+            if (odbc.rid == null) {
                 doc = new ODocument(cls.getSimpleName());
             } else {
-                doc = getODocument();
+                System.out.println("retrieving document: " + odbc.rid);
+                doc = getODocument(odbc.rid);
             }
             for (Field field : cls.getDeclaredFields()) {
                 try {
                     String fieldName = field.getName();
                     Object fieldValue = PropertyUtils.getProperty(odbc, fieldName);
+                    System.out.println("Setting field: " + fieldName);
+                    if (fieldValue instanceof List) {
+                        System.out.println("Found list");
+                        List list = (List) fieldValue;
+                        System.out.println("Size: " + list.size());
+                        List<ODocument> linkList = new ArrayList<>();
+                        if (!list.isEmpty()) {
+                            for (Object ob : list) {
+                                if (ob instanceof ODBClass) {
+                                    ODBClass od = (ODBClass) ob;
+                                    od.loadObject();
+                                    linkList.add(createODocument(od));
+                                }
+                            }
+                        }
+                        fieldValue = linkList;
+                    }
                     if (fieldValue instanceof ODBClass) {
-                        fieldValue = createODocument((ODBClass) fieldValue);
+                        System.out.println("Found ODB Class");
+                        ODBClass odb = (ODBClass) fieldValue;
+                        odb.loadObject();
+                        fieldValue = createODocument(odb);
                     }
                     if (fieldValue != null) {
                         doc.field(fieldName, fieldValue);
@@ -137,6 +162,9 @@ public abstract class ODBClass {
     }
 
     private void fillObject(ODocument doc, Object ob) throws NoSuchMethodException, ClassNotFoundException, IllegalAccessException, InvocationTargetException {
+        ODBClass odbc = (ODBClass) ob;
+        odbc.setRid(doc.getIdentity().toString());
+
         for (String fieldName : doc.fieldNames()) {
             Object fieldValue = doc.field(fieldName);
             if (fieldValue instanceof ODocument) {
@@ -154,11 +182,11 @@ public abstract class ODBClass {
         }
     }
 
-    private ODocument getODocument() {
+    private ODocument getODocument(String rid) {
         ODocument doc;
         try (ODatabaseRecord db = DBFactory.getDb()) {
-            db.delete(new ORecordId(rid));
             doc = db.getRecord(new ORecordId(rid));
+            System.out.println(rid);
         }
         return doc;
     }

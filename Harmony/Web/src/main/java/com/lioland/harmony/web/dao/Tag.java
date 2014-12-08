@@ -28,6 +28,13 @@ public class Tag extends ODBClass {
     private String name;
     private String description;
 
+    public Tag(String name) {
+        this.name = name;
+    }
+
+    public Tag() {
+    }
+
     public String getName() {
         return name;
     }

@@ -134,4 +134,11 @@ public class Need extends ODBClass {
 //    public void setTags(List<Tag> tags) {
 //        this.tags = tags;
 //    }
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 }

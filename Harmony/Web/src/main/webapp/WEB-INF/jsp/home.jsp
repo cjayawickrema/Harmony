@@ -43,14 +43,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 <div class="col-md-4 phase-list">
                     <ul class="list-group">
                         <li class="list-group-item"><img src="resources/images/explore.svg"/><a href="report-need">Explore and Report Needs</a></li>
-                        <li class="list-group-item"><img src="resources/images/project-new.svg"/>Create a Project</li>
+                        <li class="list-group-item"><img src="resources/images/project-new.svg"/><a href="reported-needs">Create a Project</a></li>
                         <li class="list-group-item"><img src="resources/images/collaborate.svg"/>Collaborate with others</li>
                         <li class="list-group-item"><img src="resources/images/deploy.svg"/>Implement</li>
                         <li class="list-group-item"><img src="resources/images/accomplish.svg"/>Accomplish</li>
                     </ul>
                 </div>
                 <div class="col-md-4 text-center">
-                    <img width="180" src="resources/images/full-logo.svg" alt="Harmony"/>
+                    <a href="home"><img width="180" src="resources/images/full-logo.svg" alt="Harmony"/></a>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <c:choose>

@@ -32,6 +32,16 @@ public class DefaultController {
         return "home";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/unauthorized")
+    public String redirectUnauthorized() {
+        return "unauthroized";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/reported-needs")
+    public String redirectReportedNeeds() {
+        return "reported-needs";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/register")
     public String redirectRegister() {
         return "register";

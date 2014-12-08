@@ -17,47 +17,43 @@
  */
 package com.lioland.harmony.web.dao;
 
-import com.lioland.harmony.web.controller.DefaultController;
-import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test {
 
     public static void main(String[] args) {
-//        DBFactory factory = DBFactory.getInstance();
-//        Department department = new Department("#13:6");
-//        department.setCode("111");
-//        department.setName("GTO");
-//
-//        Employee e = new Employee();
-//        e.setDepartment(department);
-//        e.setName("B");
-//        e.setAddress("Maharagama");
-//        e.setAge(26);
-//        e.setDateOfBirth(new Date());
-//        e.setNumber("1234");
-//        e.save();
-//        System.out.println(e.getRid());
+        tags();
+//        needs();
+    }
 
-//        factory.getDb().getRecord(OIdentifiable);
-//        User user = new User();
-//        user.setDateOfBirth(new Date());
-//        user.setEmail("chandima@lioland.com");
-//        user.setFirstName("Chandima");
-//        user.setJoinedDate(new Date());
-//        user.setLastName("Jayawickrema");
-//        user.setPassword("chandima");
-//        user.save();
-        for (int i = 0; i < 2; i++) {
-            new Thread() {
-                @Override
-                public void run() {
-                    ODatabaseRecordThreadLocal.INSTANCE.set(DBFactory.getDb());
-                    new DefaultController().authenticate("chandima@lioland.com", "chandima", null);
-                    System.out.println("done");
-                }
-            }.start();
+    public static void needs() {
+
+        Need n = new Need();
+        n.setAddress("ssss");
+        n.setCity("Maha");
+        n.setCountry("Sri Lanka");
+        n.setDescription("kjhgsfkjs dg sfkjgs f4");
+        n.setLatitude(0);
+        n.setLongtitude(0);
+        User u = new User();
+        u.setEmail("chandima@lioland.com");
+        n.setReporter(u);
+        n.setState("Western");
+        n.setTitle("Test al ahd");
+        List<Tag> tags = new ArrayList<Tag>();
+        tags.add(new Tag("Education"));
+        tags.add(new Tag("Medication"));
+        n.setTags(tags);
+        n.save();
+    }
+
+    public static void tags() {
+        String[] s = {"Educational", "Food", "Water", "Construction", "Clothes", "Medication", "Organs", "Blood", "Other"};
+        for (String s1 : s) {
+            Tag tag = new Tag(s1);
+            tag.setDescription(s1);
+            tag.save();
         }
-
-//        factory.close();
     }
 }
