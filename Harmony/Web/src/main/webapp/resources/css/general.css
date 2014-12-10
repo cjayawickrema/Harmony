@@ -50,3 +50,13 @@ body {
     height: 400px;
     border: 1px solid #ddd;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.top-margin {
+    margin-top: 20px;
+}

@@ -18,13 +18,17 @@
 package com.lioland.harmony.web.controller;
 
 import com.lioland.harmony.web.dao.Need;
-import com.lioland.harmony.web.dao.Tag;
 import com.lioland.harmony.web.dao.User;
 import com.lioland.harmony.web.util.Constants;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -39,5 +43,25 @@ public class NeedController {
         need.save();
         System.out.println("Need saved");
         return "report-need";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/search-needs")
+    @ResponseBody
+    public List<Map> searchNeeds(String country, String tags) {
+        System.out.println("Seach needs");
+        String query = "select * from Need where country='" + country + "' and '" + tags + "' in tags.name";
+        List<Need> needs = Need.queryList(query, Need.class);
+        List<Map> results = new ArrayList<>();
+        for (Need need : needs) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("title", need.getTitle());
+            map.put("country", need.getCountry());
+            map.put("city", need.getCity());
+            map.put("longtitude", need.getLongtitude());
+            map.put("latitude", need.getLatitude());
+            results.add(map);
+            System.out.println(need);
+        }
+        return results;
     }
 }

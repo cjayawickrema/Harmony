@@ -132,12 +132,12 @@ public abstract class ODBClass {
         this.rid = rid;
     }
 
-    protected Object querySingle(String query, Class cls) {
+    public static Object querySingle(String query, Class cls) {
         List results = queryList(query, cls);
         return results.get(0);
     }
 
-    protected List queryList(String query, Class cls) {
+    public static List queryList(String query, Class cls) {
         List<ODocument> docs;
         try (ODatabaseRecord db = DBFactory.getDb()) {
             docs = db.query(new OSQLSynchQuery<ODocument>(query));
@@ -150,7 +150,7 @@ public abstract class ODBClass {
         return results;
     }
 
-    private Object transform(ODocument doc, Class cls) {
+    private static Object transform(ODocument doc, Class cls) {
         Object ob = null;
         try {
             ob = cls.newInstance();
@@ -161,7 +161,7 @@ public abstract class ODBClass {
         return ob;
     }
 
-    private void fillObject(ODocument doc, Object ob) throws NoSuchMethodException, ClassNotFoundException, IllegalAccessException, InvocationTargetException {
+    private static void fillObject(ODocument doc, Object ob) throws NoSuchMethodException, ClassNotFoundException, IllegalAccessException, InvocationTargetException {
         ODBClass odbc = (ODBClass) ob;
         odbc.setRid(doc.getIdentity().toString());
 
@@ -191,6 +191,6 @@ public abstract class ODBClass {
         return doc;
     }
 
-    private static final String PACKAGE_PREFIX = "com.lioland.harmony.dataaccess.";
+    private static final String PACKAGE_PREFIX = "com.lioland.harmony.web.dao.";
 
 }
