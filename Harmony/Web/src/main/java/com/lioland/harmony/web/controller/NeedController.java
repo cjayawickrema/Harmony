@@ -39,6 +39,7 @@ public class NeedController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/save-need")
     public String redirectRegister(Need need, HttpServletRequest request) {
+        System.out.println(need);
         need.setReporter((User) request.getSession().getAttribute(Constants.SESSION_ATTR_USER));
         need.save();
         System.out.println("Need saved");
@@ -59,9 +60,30 @@ public class NeedController {
             map.put("city", need.getCity());
             map.put("longtitude", need.getLongtitude());
             map.put("latitude", need.getLatitude());
+            map.put("rid", need.getRid());
             results.add(map);
             System.out.println(need);
         }
         return results;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/need-details")
+    @ResponseBody
+    public Map getNeedDetails(String rid) {
+        System.out.println("Get need: " + rid);
+        Need need = (Need) Need.querySingle("select * from Need where @rid='" + rid + "'", Need.class);
+        System.out.println(need);
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", need.getTitle());
+        map.put("description", need.getDescription());
+        map.put("address", need.getAddress());
+        map.put("country", need.getCountry());
+        map.put("images", need.getImages());
+        map.put("city", need.getCity());
+        map.put("longtitude", need.getLongtitude());
+        map.put("latitude", need.getLatitude());
+        map.put("reporter", need.getReporter().getFullName());
+        map.put("rid", need.getRid());
+        return map;
     }
 }

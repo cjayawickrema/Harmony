@@ -102,10 +102,10 @@ public abstract class ODBClass {
                                     ODBClass od = (ODBClass) ob;
                                     od.loadObject();
                                     linkList.add(createODocument(od));
+                                    fieldValue = linkList;
                                 }
-                            }
-                        }
-                        fieldValue = linkList;
+                            }                            
+                        }                        
                     }
                     if (fieldValue instanceof ODBClass) {
                         System.out.println("Found ODB Class");

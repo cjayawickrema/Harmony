@@ -60,3 +60,48 @@ body {
 .top-margin {
     margin-top: 20px;
 }
+
+#dropzone {
+    background: #ccccc;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+#dropzone.in {
+    width: 600px;
+    height: 200px;
+    line-height: 200px;
+    font-size: larger;
+}
+#dropzone.hover {
+    background: lawngreen;
+}
+#dropzone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+.dropzone {
+    background: #fff !important;
+    border: 1px solid #eee;
+    box-shadow: 0 0 30px #ddd;
+    margin: 10px 0;
+    height: 100px !important;
+}
+
+.dropzone .dz-default.dz-message {
+    background: none !important;
+}
+
+.dropzone .dz-default.dz-message span {
+    display: block;
+    vertical-align: middle;
+    font-size: 20px;
+    text-align: center;
+}

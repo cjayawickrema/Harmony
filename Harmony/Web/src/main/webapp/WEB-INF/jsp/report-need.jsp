@@ -21,9 +21,13 @@
         <link rel="stylesheet" href="resources/css/bootstrap.min.css">
         <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="resources/css/general.css"/>
-        <link rel="stylesheet" href="resources/css/register.css"/>
+        <link rel="stylesheet" href="resources/css/register.css"/>        
+        <link rel="stylesheet" href="resources/css/report-need.css"/>        
+        <link rel="stylesheet" href="resources/dropzone/css/dropzone.css"/>
         <script src="resources/js/jquery-1.11.1.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/dropzone/dropzone.js"></script>
+        <script type="text/javascript" src="resources/js/report-need.js"></script>
         <script type="text/javascript" src="resources/js/bootstrap-growl.min.js"></script>
         <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4oVKl3sPiEFT1bo0-tGnAy11vUPXJcKg">
@@ -53,8 +57,6 @@
                 });
             }
             google.maps.event.addDomListener(window, 'load', initialize);
-
-
         </script>
     </head>
     <body>        
@@ -72,7 +74,8 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <form method="post" action="save-need" id="need-form">
+                    <form method="post" action="save-need" id="need-form" onsubmit="return validate()">
+                        <select id="images" name="images" multiple></select>
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea type="text" class="form-control" id="description" name="description"></textarea>
@@ -366,6 +369,14 @@
                 </div>
                 <div class="col-md-7">
                     <div id="map-canvas"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="file-upload"
+                              class="dropzone"
+                              id="my-dropzone"></form>
+                        <!--<div class="dropzone" id="my-dropzone"></div>-->
+                    </div>
                 </div>
             </div>
         </div>

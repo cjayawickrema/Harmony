@@ -36,6 +36,10 @@ public class User extends ODBClass {
         super(rid);
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public User() {
     }
 

@@ -35,6 +35,7 @@ public class Need extends ODBClass {
     private String state;
     private String country;
     private User reporter;
+    private List<String> images = new ArrayList<>();
     private List<Tag> tags = new ArrayList<>();
 
     public String getTitle() {
@@ -116,7 +117,7 @@ public class Need extends ODBClass {
 //    }
     @Override
     public String toString() {
-        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + '}';
+        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + ", images=" + images + ", tags=" + tags + '}';
     }
 
     public User getReporter() {
@@ -140,5 +141,13 @@ public class Need extends ODBClass {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

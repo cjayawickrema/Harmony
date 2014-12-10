@@ -93,5 +93,20 @@ function renderNeedMap() {
  * getNeedDetails
  */
 function getNeedDetails(need) {
-    
+    $.ajax({
+        dataType: "json",
+        url: 'need-details',
+        data: {rid: need.rid},
+        success: function (need) {
+            $.get('resources/templates/need-details.mst', function (template) {
+                var rendered = Mustache.render(template, need);
+                $('#need-detail').html(rendered);
+            });
+            
+             $.get('resources/templates/need-images.mst', function (template) {
+                var rendered = Mustache.render(template, need.images);
+                $('#need-images').html(rendered);
+            });
+        }
+    });
 }

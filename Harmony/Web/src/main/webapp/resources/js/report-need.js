@@ -16,3 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+/**
+ * validate
+ */
+function validate() {
+    myDropzone = Dropzone.forElement('#my-dropzone');
+    files = myDropzone.getAcceptedFiles();
+    for (var i = 0, max = files.length; i < max; i++) {
+        $('#images').append($('<option>').attr('value', files[i].name).attr('selected', ''));
+    }
+}

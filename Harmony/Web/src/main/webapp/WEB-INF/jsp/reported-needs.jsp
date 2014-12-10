@@ -18,6 +18,8 @@
         <script src="resources/js/jquery-1.11.1.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="resources/js/reported-needs.js"></script>
+        <script type="text/javascript" src="resources/js/mustache.js"></script>
+        <script type="text/javascript" src="resources/dropzone/dropzone.js"></script>
         <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4oVKl3sPiEFT1bo0-tGnAy11vUPXJcKg">
         </script>
@@ -352,10 +354,15 @@
                 <div class="col-md-7">
                     <div id="need-map"></div>
                 </div>
-                <div class="col-md-5 text-center vcenter">
+                <div class="col-md-5">
                     <div id="need-detail">
                         <p>Please select a Need from left</p>
                     </div>                        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="need-images"></div>
                 </div>
             </div>
         </div>
