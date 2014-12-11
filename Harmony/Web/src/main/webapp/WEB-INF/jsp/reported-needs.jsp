@@ -4,6 +4,8 @@
     Author     : Chandima
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,12 +22,14 @@
         <script type="text/javascript" src="resources/js/reported-needs.js"></script>
         <script type="text/javascript" src="resources/js/mustache.js"></script>
         <script type="text/javascript" src="resources/dropzone/dropzone.js"></script>
+        <script src="resources/js/general.js"></script>
         <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4oVKl3sPiEFT1bo0-tGnAy11vUPXJcKg">
         </script>
         <script type="text/javascript">
             var map = null;
             var markers = [];
+            var selectedNeed = null;
             function initialize() {
                 var mapOptions = {
                     center: {lat: 8.29252501135247, lng: 80.5182409286499},
@@ -46,7 +50,7 @@
                             <a href="home"><img src="resources/images/logo.svg" width="100" /></a>
                         </div>
                         <div class="col-md-9 title"><h2>Reported Needs</h2></div>
-                        <div class="col-md-2 user-name text-center">${sessionScope.user.firstName} ${sessionScope.user.lastName}</div>
+                        <c:import url="common/user-info.jsp"/>
                     </div>
                 </div>
             </div>
@@ -343,9 +347,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="form-group">   
-                                <input type="button" class="btn btn-primary" value="Create Project"/>
-                            </div>
+
                         </div>
                     </div>
                 </div>                
@@ -357,7 +359,12 @@
                 <div class="col-md-5">
                     <div id="need-detail">
                         <p>Please select a Need from left</p>
-                    </div>                        
+                    </div>   
+                    <c:if test="${not empty sessionScope.user}">
+                        <div class="form-group">   
+                            <input type="button" id="create-project-button" class="btn btn-primary" value="Create a Project for this Need" onclick="createProject()"/>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <div class="row">

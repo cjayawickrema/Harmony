@@ -28,6 +28,7 @@
         <script src="resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="resources/dropzone/dropzone.js"></script>
         <script type="text/javascript" src="resources/js/report-need.js"></script>
+        <script src="resources/js/general.js"></script>
         <script type="text/javascript" src="resources/js/bootstrap-growl.min.js"></script>
         <script type="text/javascript"
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4oVKl3sPiEFT1bo0-tGnAy11vUPXJcKg">
@@ -68,7 +69,7 @@
                             <a href="home"><img src="resources/images/logo.svg" width="100" /></a>
                         </div>
                         <div class="col-md-9 title text-center"><input type="text" name="title" form="need-form" placeholder="Title goes here..." /></div>
-                        <div class="col-md-2 user-name text-center">${sessionScope.user.firstName} ${sessionScope.user.lastName}</div>
+                        <c:import url="common/user-info.jsp"/>
                     </div>
                 </div>
             </div>

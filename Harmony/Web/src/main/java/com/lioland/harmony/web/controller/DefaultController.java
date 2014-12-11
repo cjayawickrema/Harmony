@@ -5,6 +5,8 @@
  */
 package com.lioland.harmony.web.controller;
 
+import com.lioland.harmony.web.dao.Need;
+import com.lioland.harmony.web.dao.ODBClass;
 import com.lioland.harmony.web.dao.User;
 import com.lioland.harmony.web.util.Constants;
 import java.util.Date;
@@ -12,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,6 +53,25 @@ public class DefaultController {
     @RequestMapping(method = RequestMethod.GET, value = "/report-need")
     public String redirectReportNeed() {
         return "report-need";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "home";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/create-project")
+    public String redirectCreateProject(String needRid, Model model, HttpServletRequest request) {
+        Need need = (Need) Need.querySingle("select * from Need where @rid='" + needRid + "'", Need.class);
+        System.out.println(need);
+
+        User user = (User) request.getSession().getAttribute(Constants.SESSION_ATTR_USER);
+        List<User> users = ODBClass.queryList("select * from User where @rid<>'" + user.getRid() + "'", User.class);
+        System.out.println(users);
+        model.addAttribute("need", need);
+        model.addAttribute("users", users);
+        return "create-project";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/authenticate")

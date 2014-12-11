@@ -78,6 +78,7 @@ function renderNeedMap() {
 
         google.maps.event.addListener(marker, 'click', function () {
             getNeedDetails(this.need);
+            selectedNeed = this.need;
         });
     }
 
@@ -102,11 +103,20 @@ function getNeedDetails(need) {
                 var rendered = Mustache.render(template, need);
                 $('#need-detail').html(rendered);
             });
-            
-             $.get('resources/templates/need-images.mst', function (template) {
+
+            $.get('resources/templates/need-images.mst', function (template) {
                 var rendered = Mustache.render(template, need.images);
                 $('#need-images').html(rendered);
             });
+
+            $('#create-project-button').show();
         }
     });
+}
+
+/**
+ * create project for need
+ */
+function createProject() {
+    post('create-project', {needRid: selectedNeed.rid}, 'get');
 }

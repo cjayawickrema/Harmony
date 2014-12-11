@@ -18,6 +18,7 @@
         <script src="resources/js/jquery-1.11.1.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/register.js"></script>
+        <script src="resources/js/general.js"></script>
         <script type="text/javascript" src="resources/js/bootstrap-growl.min.js"></script>
     </head>
     <body>

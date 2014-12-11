@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="resources/css/register.css"/>
         <script src="resources/js/jquery-1.11.1.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/general.js"></script>
     </head>
     <body>
         <div class="container">

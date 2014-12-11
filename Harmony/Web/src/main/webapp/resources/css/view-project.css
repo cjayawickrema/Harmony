@@ -16,15 +16,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 /* 
-    Created on : Dec 7, 2014, 8:13:54 PM
+    Created on : Dec 11, 2014, 3:45:23 PM
     Author     : Chandima
 */
-
-.need-search-filters .search-filter-wrapper {
-    background: #fff;
-    height: 100px;
-    padding: 20px;
-}
 
 #need-map {
     width: 100%;
@@ -32,14 +26,29 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     border: 1px solid #ddd;
 }
 
-.image-bar {
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 30px #ddd;
-    margin: 20px 0;
+.implementation-date {
+    font-size: 2em;
 }
 
-#create-project-button {
+.img-wrapper {
+    margin-top: 10px;    
+}
+.img-wrapper img {
+    box-shadow: 0 0 20px #ddd;
+}
+
+.image-container {
+    height: 142px;
+    overflow: auto;
+}
+
+#users li {
+    padding: 2px 5px;
+}
+#users li img {
+    margin: 0 4px;
+}
+
+#user-list {
     display: none;
-    margin-top: 50px;
 }

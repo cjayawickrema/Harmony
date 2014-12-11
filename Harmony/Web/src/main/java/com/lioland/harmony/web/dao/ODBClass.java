@@ -17,10 +17,12 @@
  */
 package com.lioland.harmony.web.dao;
 
+import com.lioland.harmony.web.util.Utils;
 import com.orientechnologies.orient.core.db.record.ODatabaseRecord;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -38,6 +40,14 @@ public abstract class ODBClass {
     private String rid;
 
     public abstract String getUniqueFieldName();
+
+    public String getEncodedRid() {
+        try {
+            return Utils.urlEncode(rid);
+        } catch (UnsupportedEncodingException ex) {
+            return null;
+        }
+    }
 
     public void loadObject() {
         Class cls = this.getClass();
@@ -104,8 +114,8 @@ public abstract class ODBClass {
                                     linkList.add(createODocument(od));
                                     fieldValue = linkList;
                                 }
-                            }                            
-                        }                        
+                            }
+                        }
                     }
                     if (fieldValue instanceof ODBClass) {
                         System.out.println("Found ODB Class");
@@ -138,6 +148,7 @@ public abstract class ODBClass {
     }
 
     public static List queryList(String query, Class cls) {
+        System.out.println("Query: " + query);
         List<ODocument> docs;
         try (ODatabaseRecord db = DBFactory.getDb()) {
             docs = db.query(new OSQLSynchQuery<ODocument>(query));
@@ -167,8 +178,17 @@ public abstract class ODBClass {
 
         for (String fieldName : doc.fieldNames()) {
             Object fieldValue = doc.field(fieldName);
+            System.out.println("fieldName: " + fieldName);
             if (fieldValue instanceof ODocument) {
+                System.out.println("ODocument found");
                 fieldValue = transform((ODocument) fieldValue, Class.forName(PACKAGE_PREFIX + ((ODocument) fieldValue).getClassName()));
+            } else if (fieldValue instanceof List) {
+                List<ODocument> list = (List) fieldValue;
+                List newList = new ArrayList();
+                for (ODocument odoc : list) {
+                    newList.add(transform(odoc, Class.forName(PACKAGE_PREFIX + odoc.getClassName())));
+                }
+                fieldValue = newList;
             }
             if (fieldValue != null) {
                 PropertyUtils.setProperty(ob, fieldName, fieldValue);

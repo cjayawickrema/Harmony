@@ -24,6 +24,7 @@ body {
     background: #F6F6F6;
     font-family: 'Segoe UI',Tahoma,Helvetica,Sans-Serif;
     margin-top: 20px;
+    color: #444;
 }
 
 .main-header {
@@ -104,4 +105,17 @@ body {
     vertical-align: middle;
     font-size: 20px;
     text-align: center;
+}
+
+.content-box {
+    background: #fff;
+    box-shadow: 0 0 20px #ddd;
+    margin: 10px;
+    padding: 20px;
+}
+
+.logout-button {
+    height: 30px;
+    width:60px;
+    padding: 0;
 }

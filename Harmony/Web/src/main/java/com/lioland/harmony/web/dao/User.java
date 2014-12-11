@@ -18,6 +18,7 @@
 package com.lioland.harmony.web.dao;
 
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -29,11 +30,13 @@ public class User extends ODBClass {
     private String lastName;
     private String email;
     private String password;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date joinedDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
-    public User(String rid) {
-        super(rid);
+    public User(String email) {
+        this.email = email;
     }
 
     public String getFullName() {

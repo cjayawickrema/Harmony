@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <script src="resources/js/jquery-1.11.1.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/bootstrap-growl.min.js"></script>
+        <script src="resources/js/general.js"></script>
         <script src="resources/js/home.js"></script>
     </head>
     <body ng-app="home">
@@ -44,7 +45,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                     <ul class="list-group">
                         <li class="list-group-item"><img src="resources/images/explore.svg"/><a href="report-need">Explore and Report Needs</a></li>
                         <li class="list-group-item"><img src="resources/images/project-new.svg"/><a href="reported-needs">Create a Project</a></li>
-                        <li class="list-group-item"><img src="resources/images/collaborate.svg"/>Collaborate with others</li>
+                        <li class="list-group-item"><img src="resources/images/collaborate.svg"/><a href="project-list">Collaborate with others</a></li>
                         <li class="list-group-item"><img src="resources/images/deploy.svg"/>Implement</li>
                         <li class="list-group-item"><img src="resources/images/accomplish.svg"/>Accomplish</li>
                     </ul>
@@ -67,7 +68,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         </c:when>
                         <c:otherwise>
                             <div>
-                                <div>${sessionScope.user.firstName} ${sessionScope.user.lastName}</div>
+                                <c:import url="common/user-info.jsp"/>
                             </div>
                         </c:otherwise>
                     </c:choose>
