@@ -20,6 +20,7 @@ package com.lioland.harmony.web.dao;
 import com.lioland.harmony.web.util.Utils;
 import com.orientechnologies.orient.core.db.record.ODatabaseRecord;
 import com.orientechnologies.orient.core.id.ORecordId;
+import com.orientechnologies.orient.core.metadata.schema.OSchema;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import java.io.UnsupportedEncodingException;
@@ -53,10 +54,17 @@ public abstract class ODBClass {
         Class cls = this.getClass();
         System.out.println("loading object: " + cls);
         try {
-            String query = "select * from " + cls.getSimpleName() + " where " + getUniqueFieldName() + "='" + PropertyUtils.getProperty(this, getUniqueFieldName()) + "'";
+            String docClass = cls.getSimpleName();
+            String query = "select * from " + docClass + " where " + getUniqueFieldName() + "='" + PropertyUtils.getProperty(this, getUniqueFieldName()) + "'";
             System.out.println("Query: " + query);
             List<ODocument> docs;
             try (ODatabaseRecord db = DBFactory.getDb()) {
+                OSchema schema = db.getMetadata().getSchema();
+                if (!schema.existsClass(docClass)) {
+                    System.out.println("::::::::::::::WARNING::::::::::::::::");
+                    System.out.println("Created missing class: " + docClass);
+                    schema.createClass(docClass);
+                }
                 docs = db.query(new OSQLSynchQuery<ODocument>(query));
             }
             if (!docs.isEmpty()) {

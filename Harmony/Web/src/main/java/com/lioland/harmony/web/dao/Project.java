@@ -42,9 +42,41 @@ public class Project extends ODBClass {
     private String accountNumber;
     private String bank;
     private String branch;
+    private List<CashFlow> expenses = new ArrayList<>();
+    private String status;
+    private List<CashFlow> contributions = new ArrayList<>();
+    private List<Event> agenda = new ArrayList<>();
+
+    public void addEvent(Event event) {
+        agenda.add(event);
+    }
+
+    public void addContribution(CashFlow cashFlow) {
+        contributions.add(cashFlow);
+    }
+
+    public void addExpense(CashFlow cashFlow) {
+        expenses.add(cashFlow);
+    }
 
     public Need getNeed() {
         return need;
+    }
+
+    public double getTotalContributions() {
+        double sum = 0;
+        for (CashFlow contribution : contributions) {
+            sum += contribution.getAmount();
+        }
+        return sum;
+    }
+
+    public double getTotalExpenses() {
+        double sum = 0;
+        for (CashFlow expense : expenses) {
+            sum += expense.getAmount();
+        }
+        return sum;
     }
 
     public void setNeed(Need need) {
@@ -53,7 +85,7 @@ public class Project extends ODBClass {
 
     @Override
     public String toString() {
-        return "Project{" + "title=" + title + ", implementationDate=" + implementationDate + ", users=" + users + ", description=" + description + ", need=" + need + ", donorsAllowed=" + donorsAllowed + ", participantsAllowed=" + participantsAllowed + ", coordinatorsAllowed=" + coordinatorsAllowed + ", accountName=" + accountName + ", accountNumber=" + accountNumber + ", bank=" + bank + ", branch=" + branch + '}';
+        return "Project{" + "title=" + title + ", implementationDate=" + implementationDate + ", users=" + users + ", description=" + description + ", need=" + need + ", donorsAllowed=" + donorsAllowed + ", participantsAllowed=" + participantsAllowed + ", coordinatorsAllowed=" + coordinatorsAllowed + ", accountName=" + accountName + ", accountNumber=" + accountNumber + ", bank=" + bank + ", branch=" + branch + ", expenses=" + expenses + ", status=" + status + ", contributions=" + contributions + ", agenda=" + agenda + '}';
     }
 
     public boolean isDonorsAllowed() {
@@ -147,15 +179,47 @@ public class Project extends ODBClass {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public String getFormattedImplementationDate(){
-        SimpleDateFormat df =new SimpleDateFormat("yyyy-MMM-dd");
+
+    public String getFormattedImplementationDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
         return df.format(implementationDate);
     }
 
     @Override
     public String getUniqueFieldName() {
         return "title";
+    }
+
+    public List<CashFlow> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<CashFlow> expenses) {
+        this.expenses = expenses;
+    }
+
+    public List<CashFlow> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(List<CashFlow> contributions) {
+        this.contributions = contributions;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Event> getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(List<Event> agenda) {
+        this.agenda = agenda;
     }
 
 }

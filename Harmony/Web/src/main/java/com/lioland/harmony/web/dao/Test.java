@@ -18,12 +18,15 @@
 package com.lioland.harmony.web.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Test {
 
     public static void main(String[] args) {
-        tags();
+//        tags();
+        project();
 //        needs();
     }
 
@@ -55,5 +58,27 @@ public class Test {
             tag.setDescription(s1);
             tag.save();
         }
+    }
+
+    private static void project() {
+        Project p = new Project();
+        p.setTitle("fssd fsadf");
+        p.loadObject();
+        Task t = new Task();
+        t.setId(UUID.randomUUID().toString());
+        t.setName("Do this");
+        t.setOwner(new User("chandima@lioland.com"));
+        Task tt = new Task();
+        tt.setId(UUID.randomUUID().toString());
+        tt.setName("Do that");
+        t.setOwner(new User("hasanki@lioland.com"));
+        Event e = new Event();
+        e.setId(UUID.randomUUID().toString());
+        e.setName("Event 1");
+        e.setTime(new Date());
+        e.addTask(tt);
+        e.addTask(t);
+        p.addEvent(e);
+        p.save();
     }
 }

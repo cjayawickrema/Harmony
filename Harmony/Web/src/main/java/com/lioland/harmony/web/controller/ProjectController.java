@@ -17,9 +17,13 @@
  */
 package com.lioland.harmony.web.controller;
 
+import com.lioland.harmony.web.dao.CashFlow;
+import com.lioland.harmony.web.dao.Event;
 import com.lioland.harmony.web.dao.ODBClass;
 import com.lioland.harmony.web.dao.Project;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,5 +58,59 @@ public class ProjectController {
         project.save();
         System.out.println("Project saved");
         return "home";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/save-contribution")
+    public String saveContribution(String projectTitle, String name, double amount, HttpServletRequest req) {
+        System.out.println("Saving contribution:" + name);
+        Project project = new Project();
+        project.setTitle(projectTitle);
+        project.loadObject();
+        CashFlow contribution = new CashFlow();
+        contribution.setId(UUID.randomUUID().toString());
+        contribution.setAmount(amount);
+        contribution.setDate(new Date());
+        contribution.setDescription(name);
+        contribution.setName(name);
+        project.addContribution(contribution);
+        project.save();
+        System.out.println("Project save: " + project);
+        return "redirect:view-project?rid=" + project.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/save-expense")
+    public String saveExpense(String projectTitle, String name, double amount) {
+        System.out.println("Saving expense:" + name);
+        Project project = new Project();
+        project.setTitle(projectTitle);
+        project.loadObject();
+        CashFlow expense = new CashFlow();
+        expense.setId(UUID.randomUUID().toString());
+        expense.setAmount(amount);
+        expense.setDate(new Date());
+        expense.setDescription(name);
+        expense.setName(name);
+        project.addExpense(expense);
+        project.save();
+        System.out.println("Project save: " + project);
+        return "redirect:view-project?rid=" + project.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/save-event")
+    public String saveEvent(String projectTitle, String name, Date date) {
+        System.out.println("Saving Event: " + name);
+        Project project = new Project();
+        project.setTitle(projectTitle);
+        project.loadObject();
+
+        Event e = new Event();
+        e.setName(name);
+        e.setTime(date);
+        e.setId(UUID.randomUUID().toString());
+        project.addEvent(e);
+
+        project.save();
+        System.out.println("Project save: " + project);
+        return "redirect:view-project?rid=" + project.getEncodedRid();
     }
 }
