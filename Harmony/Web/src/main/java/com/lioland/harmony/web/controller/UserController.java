@@ -17,10 +17,25 @@
  */
 package com.lioland.harmony.web.controller;
 
+import com.lioland.harmony.web.dao.ODBClass;
+import com.lioland.harmony.web.dao.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 /**
  *
  * @author Chandima
  */
+@Controller
 public class UserController {
 
+    @RequestMapping(method = RequestMethod.GET, value = "/view-user")
+    public String redirectViewUser(Model model, String rid) {
+        User member = (User) ODBClass.querySingle("select * from User where @rid='" + rid + "'", User.class);
+        System.out.println(member);
+        model.addAttribute("member", member);
+        return "view-user";
+    }
 }

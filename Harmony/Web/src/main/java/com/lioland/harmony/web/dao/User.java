@@ -17,7 +17,9 @@
  */
 package com.lioland.harmony.web.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -34,6 +36,21 @@ public class User extends ODBClass {
     private Date joinedDate;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
+
+    public List<Project> getProjects() {
+        String query = "select * from project where '" + email + "' in users.email";
+        return queryList(query, Project.class);
+    }
+
+    public List<Appreciation> getReceivedAppreciations() {
+        String query = "select * from Appreciation where appreciatee.email = '" + email + "'";
+        return queryList(query, Appreciation.class);
+    }
+
+    public String getJoinedMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM, yyyy");
+        return dateFormat.format(joinedDate);
+    }
 
     public User(String email) {
         this.email = email;

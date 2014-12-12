@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+/*
 Copyright (C) 2014 Chandima
 
 This program is free software; you can redistribute it and/or
@@ -15,12 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
--->
-<div>
-    <h2>{{title}}</h2>
-    <p>{{description}}</p>
-    <h3>Address</h3>
-    <p>{{address}}</p>
-    <h3>Reported by</h3>
-    <div>{{reporter}}</div>
-</div>
+*/
+/* 
+    Created on : Dec 12, 2014, 9:18:17 PM
+    Author     : Chandima
+*/
+
+.big-text {
+    font-size: 5em;
+}

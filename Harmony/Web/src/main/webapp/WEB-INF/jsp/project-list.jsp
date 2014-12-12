@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Report a Need</title>
+        <title>Project List</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -40,8 +40,15 @@
                 <div class="col-md-12">
                     <ul class="list-group">
                         <c:forEach var="project" items="${projects}">
-                            <a href="view-project?rid=${project.encodedRid}"><li class="list-group-item">${project.title}</li></a>
-                                </c:forEach>
+                            <a href="view-project?rid=${project.encodedRid}">
+                                <li class="list-group-item">${project.title}
+                                    <span class="badge city">${project.need.city}</span>
+                                    <span class="badge ${project.status}">${project.status}</span>
+                                    <span class="badge">${project.memberCount} Members</span>
+                                    <span class="badge">Due on ${project.formattedImplementationDate}</span>
+                                </li>
+                            </a>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

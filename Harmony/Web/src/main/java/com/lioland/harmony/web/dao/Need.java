@@ -111,13 +111,9 @@ public class Need extends ODBClass {
         return "title";
     }
 
-//    @Override
-//    public String toString() {
-//        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + ", tags=" + tags + '}';
-//    }
     @Override
     public String toString() {
-        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + ", images=" + images + ", tags=" + tags + '}';
+        return "Need{" + "title=" + title + ", description=" + description + ", longtitude=" + longtitude + ", latitude=" + latitude + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", reporter=" + reporter + ", tags=" + tags + '}';
     }
 
     public User getReporter() {

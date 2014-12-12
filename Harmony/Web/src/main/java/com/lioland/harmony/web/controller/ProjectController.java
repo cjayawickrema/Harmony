@@ -17,10 +17,13 @@
  */
 package com.lioland.harmony.web.controller;
 
+import com.lioland.harmony.web.dao.Appreciation;
 import com.lioland.harmony.web.dao.CashFlow;
 import com.lioland.harmony.web.dao.Event;
 import com.lioland.harmony.web.dao.ODBClass;
 import com.lioland.harmony.web.dao.Project;
+import com.lioland.harmony.web.dao.User;
+import com.lioland.harmony.web.util.Constants;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,8 +41,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ProjectController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/project-list")
-    public String redirectProjectList(Model model) {
-        List<Project> projects = ODBClass.queryList("select * from Project", Project.class);
+    public String redirectProjectList(Model model, String status) {
+        String query;
+        if (status == null) {
+            query = "select * from Project";
+        } else {
+            query = "select * from Project where status='" + status + "'";
+        }
+
+        List<Project> projects = ODBClass.queryList(query, Project.class);
         model.addAttribute("projects", projects);
         return "project-list";
     }
@@ -55,6 +65,7 @@ public class ProjectController {
     @RequestMapping(method = RequestMethod.POST, value = "/save-project")
     public String saveProject(Project project, HttpServletRequest request) {
         System.out.println("Saving Project:" + project);
+        project.setStatus(Project.INITIATED);
         project.save();
         System.out.println("Project saved");
         return "home";
@@ -112,5 +123,58 @@ public class ProjectController {
         project.save();
         System.out.println("Project save: " + project);
         return "redirect:view-project?rid=" + project.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/implement-project")
+    public String implementProject(String projectTitle) {
+        Project p = new Project();
+        p.setTitle(projectTitle);
+        p.loadObject();
+        p.setStatus(Project.COMMENCED);
+        p.save();
+        return "redirect:view-project?rid=" + p.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/accomplish-project")
+    public String accomplishProject(String projectTitle) {
+        Project p = new Project();
+        p.setTitle(projectTitle);
+        p.loadObject();
+        p.setStatus(Project.ACCOMPLISHED);
+        p.save();
+        return "redirect:view-project?rid=" + p.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/save-appreciation")
+    public String saveAppreciation(String projectTitle, String user, String note, HttpServletRequest request) {
+
+        Project p = new Project();
+        p.setTitle(projectTitle);
+        p.loadObject();
+
+        Appreciation a = new Appreciation();
+        a.setAppreciatee(new User(user));
+        a.setAppreciator(new User(((User) request.getSession().getAttribute(Constants.SESSION_ATTR_USER)).getEmail()));
+        a.setDate(new Date());
+        a.setNote(note);
+        a.setId(UUID.randomUUID().toString());
+
+        p.addAppreciation(a);
+        p.save();
+
+        return "redirect:view-project?rid=" + p.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upload-project-photos")
+    public String uploadProjectPhotos(String projectTitle, String[] files) {
+        Project p = new Project();
+        p.setTitle(projectTitle);
+        p.loadObject();
+        for (String file : files) {
+            System.out.println("File: " + file);
+            p.addImage(file);
+        }
+        p.save();
+        return "redirect:view-project?rid=" + p.getEncodedRid();
     }
 }

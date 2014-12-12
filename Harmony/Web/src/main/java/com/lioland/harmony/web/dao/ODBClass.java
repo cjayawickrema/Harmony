@@ -193,8 +193,13 @@ public abstract class ODBClass {
             } else if (fieldValue instanceof List) {
                 List<ODocument> list = (List) fieldValue;
                 List newList = new ArrayList();
-                for (ODocument odoc : list) {
-                    newList.add(transform(odoc, Class.forName(PACKAGE_PREFIX + odoc.getClassName())));
+                for (Object item : list) {
+                    if (item instanceof ODocument) {
+                        ODocument odoc = (ODocument) item;
+                        newList.add(transform(odoc, Class.forName(PACKAGE_PREFIX + odoc.getClassName())));
+                    } else {
+                        newList.add(item);
+                    }
                 }
                 fieldValue = newList;
             }

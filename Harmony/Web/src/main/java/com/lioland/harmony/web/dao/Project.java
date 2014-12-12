@@ -29,6 +29,10 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class Project extends ODBClass {
 
+    public static final String INITIATED = "Initiated";
+    public static final String COMMENCED = "Commenced";
+    public static final String ACCOMPLISHED = "Accomplished";
+
     private String title;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date implementationDate;
@@ -46,6 +50,29 @@ public class Project extends ODBClass {
     private String status;
     private List<CashFlow> contributions = new ArrayList<>();
     private List<Event> agenda = new ArrayList<>();
+    private List<Appreciation> appreciations = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
+    private String currencyType;
+
+    public void addImage(String image) {
+        images.add(image);
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public void addAppreciation(Appreciation appreciation) {
+        appreciations.add(appreciation);
+    }
+
+    public int getMemberCount() {
+        return users.size();
+    }
 
     public void addEvent(Event event) {
         agenda.add(event);
@@ -85,7 +112,7 @@ public class Project extends ODBClass {
 
     @Override
     public String toString() {
-        return "Project{" + "title=" + title + ", implementationDate=" + implementationDate + ", users=" + users + ", description=" + description + ", need=" + need + ", donorsAllowed=" + donorsAllowed + ", participantsAllowed=" + participantsAllowed + ", coordinatorsAllowed=" + coordinatorsAllowed + ", accountName=" + accountName + ", accountNumber=" + accountNumber + ", bank=" + bank + ", branch=" + branch + ", expenses=" + expenses + ", status=" + status + ", contributions=" + contributions + ", agenda=" + agenda + '}';
+        return "Project{" + "title=" + title + ", implementationDate=" + implementationDate + ", users=" + users + ", description=" + description + ", need=" + need + ", donorsAllowed=" + donorsAllowed + ", participantsAllowed=" + participantsAllowed + ", coordinatorsAllowed=" + coordinatorsAllowed + ", accountName=" + accountName + ", accountNumber=" + accountNumber + ", bank=" + bank + ", branch=" + branch + ", expenses=" + expenses + ", status=" + status + ", contributions=" + contributions + ", agenda=" + agenda + ", appreciations=" + appreciations + ", currencyType=" + currencyType + '}';
     }
 
     public boolean isDonorsAllowed() {
@@ -220,6 +247,22 @@ public class Project extends ODBClass {
 
     public void setAgenda(List<Event> agenda) {
         this.agenda = agenda;
+    }
+
+    public List<Appreciation> getAppreciations() {
+        return appreciations;
+    }
+
+    public void setAppreciations(List<Appreciation> appreciations) {
+        this.appreciations = appreciations;
+    }
+
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setCurrencyType(String currencyType) {
+        this.currencyType = currencyType;
     }
 
 }

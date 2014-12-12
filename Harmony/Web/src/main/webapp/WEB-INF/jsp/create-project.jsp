@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Report a Need</title>
+        <title>Create Project</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -54,6 +54,39 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5 content-box">
+                        <h3>Project Settings</h3>
+                        <p class="top-margin">Allow others to join this project by</p>
+                        <div class="form-group">
+                            <label><input type="checkbox" id="donorsAllowed" name="donorsAllowed" checked=""/>Donating</label>
+                            <label><input type="checkbox" id="participantsAllowed" name="participantsAllowed" checked=""/>Participating</label>
+                            <label><input type="checkbox" id="coordinatorsAllowed" name="coordinatorsAllowed" checked=""/>Coordinating</label>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <label for="currencyType">Currency Type</label>
+                            <input type="text" class="form-control" id="currencyType" name="currencyType" placeholder="e.g. LKR, USD, GBP"/>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <label for="accountName">Account Owner Name</label>
+                            <textarea type="text" class="form-control" id="accountName" name="accountName"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountNumber">Account Number</label>
+                            <input type="text" class="form-control" id="accountNumber" name="accountNumber">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label for="bank">Bank</label>
+                                <input type="text" class="form-control" id="bank" name="bank">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="branch">Branch</label>
+                                <input type="text" class="form-control" id="branch" name="branch">
+                            </div>                            
+                        </div>           
+                    </div>
+                    <div class="col-md-5 content-box">
                         <div class="need-info">
                             <h3>${need.title}</h3>
                             <p>${need.description}</p>
@@ -85,6 +118,7 @@
                             </div>
                         </div>     
                     </div>
+                    
                     <div class="col-md-5 content-box">
                         <div class="need-info">
                             <h3>Project Members</h3>
@@ -108,34 +142,7 @@
                             </select>
                             <input type="hidden" name="need.title" value="${need.title}" />
                         </div>
-                    </div>
-                    <div class="col-md-5 content-box">
-                        <h3>Project Settings</h3>
-                        <p>Allow others to join this project by</p>
-                        <div class="form-group">
-                            <label><input type="checkbox" id="donorsAllowed" name="donorsAllowed" checked=""/>Donating</label>
-                            <label><input type="checkbox" id="participantsAllowed" name="participantsAllowed" checked=""/>Participating</label>
-                            <label><input type="checkbox" id="coordinatorsAllowed" name="coordinatorsAllowed" checked=""/>Coordinating</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="accountName">Account Owner Name</label>
-                            <textarea type="text" class="form-control" id="accountName" name="accountName"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="accountNumber">Account Number</label>
-                            <input type="text" class="form-control" id="accountNumber" name="accountNumber">
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-6">
-                                <label for="bank">Bank</label>
-                                <input type="text" class="form-control" id="bank" name="bank">
-                            </div>
-                            <div class="form-group col-xs-6">
-                                <label for="branch">Branch</label>
-                                <input type="text" class="form-control" id="branch" name="branch">
-                            </div>                            
-                        </div>           
-                    </div>
+                    </div>                    
                 </div>
                 <div class="row">
                     <div class="col-md-2 col-md-offset-9">
