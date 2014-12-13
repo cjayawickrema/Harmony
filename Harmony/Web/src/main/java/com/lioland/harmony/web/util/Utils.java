@@ -17,8 +17,16 @@
  */
 package com.lioland.harmony.web.util;
 
+import com.lioland.harmony.web.dao.DBFactory;
+import com.orientechnologies.orient.core.db.record.ODatabaseRecord;
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -28,5 +36,22 @@ public class Utils {
 
     public static String urlEncode(String value) throws UnsupportedEncodingException {
         return URLEncoder.encode(value, "UTF-8");
+    }
+
+    public static List<Map> queryList(String query) {
+        System.out.println("Query: " + query);
+        List<ODocument> docs;
+        try (ODatabaseRecord db = DBFactory.getDb()) {
+            docs = db.query(new OSQLSynchQuery<ODocument>(query));
+        }
+        List results = new ArrayList();
+        for (ODocument doc : docs) {
+            Map map = new HashMap();
+            for (String fieldName : doc.fieldNames()) {
+                map.put(fieldName, doc.field(fieldName));
+            }
+            results.add(map);
+        }
+        return results;
     }
 }

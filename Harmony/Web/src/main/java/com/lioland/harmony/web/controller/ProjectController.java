@@ -68,7 +68,7 @@ public class ProjectController {
         project.setStatus(Project.INITIATED);
         project.save();
         System.out.println("Project saved");
-        return "home";
+        return "redirect:home";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save-contribution")

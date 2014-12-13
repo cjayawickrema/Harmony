@@ -8,6 +8,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <c:if test="${not empty sessionScope.user}">
-    <div class="user-name text-right">${sessionScope.user.fullName}</div>
+    <a href="view-user?rid=${sessionScope.user.encodedRid}"><div class="user-name text-right">${sessionScope.user.fullName}</div></a>    
     <button class="btn btn-warning pull-right logout-button" onclick="logout()">Logout</button>
 </c:if>

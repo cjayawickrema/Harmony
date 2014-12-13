@@ -131,13 +131,13 @@
                                                 <c:when test="${firstTime}">
                                                     <c:set var="firstTime" value="false"/>
                                                     <div class="item active">
-                                                        <img src="resources/files/${image}" alt="...">
+                                                        <img class="horizontal-center" src="resources/files/${image}" alt="...">
                                                         <div class="carousel-caption"></div>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="item">
-                                                        <img src="resources/files/${image}" alt="...">
+                                                        <img class="horizontal-center" src="resources/files/${image}" alt="...">
                                                         <div class="carousel-caption"></div>
                                                     </div>
                                                 </c:otherwise>
@@ -279,7 +279,7 @@
                         </div>
                     </c:if>                    
                 </div>     
-                <c:if test="${not empty sessionScope.user}">
+                <c:if test="${not empty sessionScope.user && project.status == 'Accomplished'}">
                     <div class="col-md-5 content-box">
                         <h3>Share Appreciations</h3>
                         <form action="save-appreciation" method="post">

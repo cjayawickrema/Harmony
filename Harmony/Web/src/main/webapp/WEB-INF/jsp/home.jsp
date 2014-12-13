@@ -37,6 +37,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <script src="resources/js/bootstrap-growl.min.js"></script>
         <script src="resources/js/general.js"></script>
         <script src="resources/js/home.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages: ["geochart"]});
+            google.setOnLoadCallback(drawRegionsMap);
+
+            function drawRegionsMap() {
+
+                var needDensity = [['Country', 'Needs']];
+
+            <c:forEach var="item" items="${needDensity}">
+                needDensity.push(['${item.country}',${item.count}])
+            </c:forEach>
+
+                var data = google.visualization.arrayToDataTable(needDensity);
+
+                var options = {colorAxis: {colors: ['yellow', 'orange', 'red']}, backgroundColor: '#f6f6f6'};
+
+                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+                chart.draw(data, options);
+            }
+        </script>
     </head>
     <body ng-app="home">
         <div class="container">
@@ -76,6 +98,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             </div>
             <div class="row">
                 <div class="col-md-8"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div id="regions_div" style="height: 500px;"></div>
+                </div>
+                <div class="col-md-2"></div>
             </div>
         </div>
     </body>

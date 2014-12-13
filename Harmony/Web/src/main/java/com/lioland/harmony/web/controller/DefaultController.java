@@ -9,6 +9,7 @@ import com.lioland.harmony.web.dao.Need;
 import com.lioland.harmony.web.dao.ODBClass;
 import com.lioland.harmony.web.dao.User;
 import com.lioland.harmony.web.util.Constants;
+import com.lioland.harmony.web.util.Utils;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,12 @@ public class DefaultController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String redirect() {
-        return "home";
+        return "redirect:home";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/home")
-    public String redirectHome() {
+    public String redirectHome(Model model) {
+        model.addAttribute("needDensity", Utils.queryList("select country, Count(*) AS count from Need group by country"));
         return "home";
     }
 
@@ -58,7 +60,7 @@ public class DefaultController {
     @RequestMapping(method = RequestMethod.POST, value = "/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "home";
+        return "redirect:home";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/create-project")
@@ -86,7 +88,7 @@ public class DefaultController {
             session.setAttribute(Constants.SESSION_ATTR_USER, user);
             System.out.println("Authenticated: " + user.getFirstName());
         }
-        return "home";
+        return "redirect:home";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/registerUser")
@@ -94,6 +96,6 @@ public class DefaultController {
         user.setJoinedDate(new Date());
         user.save();
         System.out.println("User saved: " + user);
-        return "home";
+        return "redirect:home";
     }
 }
