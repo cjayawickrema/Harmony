@@ -61,6 +61,7 @@
                             <div class="form-group">
                                 <label for="tags">Tags</label>
                                 <select class="form-control" id="tags" name="tags">
+                                    <option selected="" value="All">All</option>
                                     <option value="Educational">Educational</option>
                                     <option value="Food">Food</option>
                                     <option value="Water">Water</option>

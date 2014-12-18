@@ -50,7 +50,12 @@ public class NeedController {
     @ResponseBody
     public List<Map> searchNeeds(String country, String tags) {
         System.out.println("Seach needs");
-        String query = "select * from Need where country='" + country + "' and '" + tags + "' in tags.name";
+        String query;
+        if ("All".equalsIgnoreCase(tags)) {
+            query = "select * from Need where country='" + country + "'";
+        } else {
+            query = "select * from Need where country='" + country + "' and '" + tags + "' in tags.name";
+        }
         List<Need> needs = Need.queryList(query, Need.class);
         List<Map> results = new ArrayList<>();
         for (Need need : needs) {
