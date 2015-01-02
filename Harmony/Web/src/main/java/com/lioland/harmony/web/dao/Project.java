@@ -52,7 +52,12 @@ public class Project extends ODBClass {
     private List<Event> agenda = new ArrayList<>();
     private List<Appreciation> appreciations = new ArrayList<>();
     private List<String> images = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
     private String currencyType;
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
 
     public void addImage(String image) {
         images.add(image);
@@ -263,6 +268,14 @@ public class Project extends ODBClass {
 
     public void setCurrencyType(String currencyType) {
         this.currencyType = currencyType;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }

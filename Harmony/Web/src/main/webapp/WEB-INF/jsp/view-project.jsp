@@ -276,9 +276,49 @@
                                     </div>
                                 </div>
                             </form>                        
-                        </div>
+                        </div>                        
                     </c:if>                    
-                </div>     
+                </div>  
+
+                <div class="col-md-5 content-box">
+                    <h3>Comments</h3>
+                    <c:if test="${project.status == 'Initiated'}">
+                        <div>
+                            <form action="save-comment" method="post">
+                                <input type="hidden" name="projectTitle" value="${project.title}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" name="comment" class="form-control" placeholder="Start typing here...">
+                                    </div>
+                                </div>        
+                                <div class="row top-margin">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-warning comment-date-button">Post</button>
+                                    </div>
+                                </div>
+                            </form>                        
+                        </div>
+                        <hr/>
+                    </c:if>
+                    <div>
+                        <c:forEach var="comment" items="${project.comments}">
+                            <div class="row top-margin">
+                                <div class="col-md-2 col-xs-2"><img width="60" src="resources/images/username.svg"/></div>
+                                <div class="col-md-9 col-xs-9">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p>${comment.text}</p>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p class="grey-text">by <a href="view-user?rid=${comment.user.encodedRid}">${comment.user.fullName}</a> on ${comment.shortDate}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </c:forEach>
+                    </div>
+                </div>
+
                 <c:if test="${not empty sessionScope.user && project.status == 'Accomplished'}">
                     <div class="col-md-5 content-box">
                         <h3>Share Appreciations</h3>

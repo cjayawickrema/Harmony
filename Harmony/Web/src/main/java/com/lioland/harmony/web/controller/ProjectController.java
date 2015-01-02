@@ -19,6 +19,7 @@ package com.lioland.harmony.web.controller;
 
 import com.lioland.harmony.web.dao.Appreciation;
 import com.lioland.harmony.web.dao.CashFlow;
+import com.lioland.harmony.web.dao.Comment;
 import com.lioland.harmony.web.dao.Event;
 import com.lioland.harmony.web.dao.ODBClass;
 import com.lioland.harmony.web.dao.Project;
@@ -119,6 +120,25 @@ public class ProjectController {
         e.setTime(date);
         e.setId(UUID.randomUUID().toString());
         project.addEvent(e);
+
+        project.save();
+        System.out.println("Project save: " + project);
+        return "redirect:view-project?rid=" + project.getEncodedRid();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/save-comment")
+    public String saveComment(String comment, String projectTitle, HttpServletRequest request) {
+        System.out.println("Saving Comment: " + comment);
+        Project project = new Project();
+        project.setTitle(projectTitle);
+        project.loadObject();
+
+        Comment c = new Comment();
+        c.setDate(new Date());
+        c.setText(comment);
+        c.setUser((User) request.getSession().getAttribute(Constants.SESSION_ATTR_USER));
+        c.setId(UUID.randomUUID().toString());
+        project.addComment(c);
 
         project.save();
         System.out.println("Project save: " + project);
